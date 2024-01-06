@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_barang')->unique();
+            $table->string('nama_barang');
+            $table->unsignedBigInteger('jenis_barang_id');
+            $table->integer('harga');
+            $table->string('cover')->nullable();
+            $table->integer('stok_awal')->default(0);
             $table->timestamps();
+        
+            $table->foreign('jenis_barang_id')->references('id')->on('jenis_barangs');
         });
     }
 
