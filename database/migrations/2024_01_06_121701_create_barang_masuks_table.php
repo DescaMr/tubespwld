@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('barang_masuks', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+                $table->string('kode_barang_masuk')->unique();
+                $table->string('kode_barang');
+                $table->integer('jumlah_masuk');
+                $table->date('tgl_masuk');
+                $table->timestamps();
+
+                // foreign key
+                $table->foreign('kode_barang')
+                    ->references('kode_barang')->on('barangs')
+                    ->onDelete('CASCADE')
+                    ->onUpdate('CASCADE');
         });
     }
 

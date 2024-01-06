@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('barang_keluars', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_barang_keluar')->unique();
+            $table->string('kode_barang');
+            $table->integer('jumlah_keluar');
+            $table->string('tujuan');
+            $table->date('tgl_keluar');
             $table->timestamps();
+
+                // foreign key
+            $table->foreign('kode_barang')
+                    ->references('kode_barang')->on('barangs')
+                    ->onDelete('CASCADE')
+                    ->onUpdate('CASCADE');
         });
     }
 
