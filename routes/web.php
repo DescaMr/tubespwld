@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Barang;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+Route::middleware('auth')->group(function () {
+    Route::get('/barang', [BarangController::class, 'index'])->name('barang');
+    Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+    Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
 });
 
 require __DIR__.'/auth.php';
