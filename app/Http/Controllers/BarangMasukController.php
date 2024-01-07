@@ -7,6 +7,8 @@ use App\Models\BarangMasuk;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use PDF;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BarangMasukExport;
 
 
 class BarangMasukController extends Controller
@@ -87,5 +89,8 @@ public function update(Request $request, $id)
         $pdf = FacadePdf::loadView('BarangMasuk.print', ['barang_masuk' => $barang_masuk]);
         return $pdf->download('data_barang_masuk.pdf');
     }
-    
+    public function export()
+    {
+        return Excel::download(new BarangMasukExport, 'data masuk.xlsx');
+    }
 }

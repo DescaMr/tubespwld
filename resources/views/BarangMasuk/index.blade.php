@@ -11,6 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                 <x-primary-button tag="a" href="{{ route('BarangMasuk.create') }}">Add</x-primary-button>
                 <x-primary-button tag="a" href="{{route('BarangMasuk.print')}}">Cetak Data Buku</x-primary-button>
+                <x-primary-button tag="a" href="{{ route('BarangMasuk.export')}}">Export Excel</x-primary-button>
                     <br /><br />
                     <x-table>
                         <x-slot name="header">

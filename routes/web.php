@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::match(['put', 'patch'], '/BarangMasuk/{id}',[BarangMasukController::class, 'update'])->name('BarangMasuk.update');
     Route::get('/get-nama-barang', [BarangMasukController::class, 'getNamaBarangByKodeBarang']);
     Route::get('/BarangMasuk/print', [BarangMasukController::class, 'print'])->name('BarangMasuk.print');
+    Route::get('/BarangMasuk/export', [BarangMasukController::class,'export'])->name('BarangMasuk.export');
 });
 
 Route::middleware('auth')->group(function () {
