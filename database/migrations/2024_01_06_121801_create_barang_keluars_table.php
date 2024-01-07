@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('tujuan');
             $table->date('tgl_keluar');
             $table->timestamps();
-
-                // foreign key
         });
     }
 
