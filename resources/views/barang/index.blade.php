@@ -1,54 +1,60 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight text-grey">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                <x-primary-button tag="a" href="{{ route('barang.create') }}">Add</x-primary-button>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <x-primary-button tag="a" href="{{ route('barang.create') }}" class="bg-green-500 hover:bg-green-600 text-white">
+                        Add
+                    </x-primary-button>
+
                     <br /><br />
-                    <x-table>
+                    
+                    <x-table class="min-w-full">
                         <x-slot name="header">
                             <tr>
-                                <th>#</th>
-                                <th>Kode Barang</th>
-                                <th>Nama Barang</th>
-                                <th>Jenis</th> 
-                                <th>Harga</th>
-                                <th>Gambar</th>
-                                <th>Stok</th>
-                                <th>Aksi</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-white bg-blue-600">#</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-white bg-blue-600">Kode Barang</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-white bg-blue-600">Nama Barang</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-white bg-blue-600">Jenis</th> 
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-white bg-blue-600">Harga</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-white bg-blue-600">Gambar</th>
+                                <th class="px-6 py-3 text-left text-xs font-semibold text-white bg-blue-600">Aksi</th>
                             </tr>
                         </x-slot>
                         @php $num = 1; @endphp
                         @foreach($data as $barang)
-                        <tr>
-                            <td>{{ $num++ }}</td>
-                            <td>{{ $barang['kode_barang'] }}</td>
-                            <td>{{ $barang['nama_barang'] }}</td>
-                            <td>{{ $barang['jenis'] }}</td> 
-                            <td>{{ $barang['harga'] }}</td>
-                            <td>
+                        <tr class="{{ $num % 2 === 0 ? 'bg-gray-100' : 'bg-white' }}">
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-800">{{ $num++ }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-800">{{ $barang['kode_barang'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-800">{{ $barang['nama_barang'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-800">{{ $barang['jenis'] }}</td> 
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-800">{{ $barang['harga'] }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 <img src="{{ asset('storage/cover_barang/'.$barang['cover']) }}" width="100px" />
                             </td>
-                            <td></td>
-                            <td>
-                                <x-primary-button tag="a" href="{{route('barang.edit', $barang['id'])}}">Edit</x-primary-button>
-
-                                <x-danger-button x-data=""
-                                x-on:click.prevent="$dispatch('open-modal', 'confirm-book-deletion')"
-                                x-on:click="$dispatch('set-action', '{{ route('barang.destroy', $barang['id']) }}')">
-                                {{ __('Delete') }}
-                            </x-danger-button>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <x-primary-button tag="a" href="{{ route('barang.edit', $barang['id']) }}" class="bg-yellow-500 hover:bg-yellow-400 text-white">
+                                    Edit
+                                </x-primary-button>
+                                <x-danger-button
+                                    x-data=""
+                                    x-on:click.prevent="$dispatch('open-modal', 'confirm-barangmasuk-deletion')"
+                                    x-on:click="$dispatch('set-action', '{{ route('barang.destroy', $barang['id']) }}')"
+                                    class="bg-red-500 hover:bg-red-700 text-white"
+                                >
+                                    Delete
+                                </x-danger-button>
                             </td>
                         </tr>
                         @endforeach
                     </x-table>
-                    <x-modal name="confirm-book-deletion" focusable maxWidth="xl">
+                    <x-modal name="confirm-barangmasuk-deletion" focusable maxWidth="xl">
                         <form method="post" x-bind:action="action" class="p-6">
                             @csrf
                             @method('delete')
@@ -68,6 +74,8 @@
                             </div>
                         </form>
                     </x-modal>
-                  
                 </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
